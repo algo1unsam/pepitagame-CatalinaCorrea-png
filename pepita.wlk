@@ -7,8 +7,18 @@ object pepita {
 	var property position = game.origin()
 
 	method image() {
-		return if (self.estaEnElNido()) "pepita-grande.png" else "pepita.png"
+		if (self.estaEnElNido()) {
+			return "pepita-grande.png"
+			} else if (self.esAtrapada(silvestre) or self.estaCansada()){
+				return "pepita-gris.png"
+			} 
+			else {
+				return "pepita.png"
+			}
+		
 	}
+
+	method esAtrapada(silvestre) = self.position() == silvestre.position()
 
 	method come(comida) {
 		energia = energia + comida.energiaQueOtorga()
@@ -31,10 +41,13 @@ object pepita {
 		return position == nido.position()
 	}
 	
-	
 	method estaEnElSuelo() {
 		return position.y() == 0 
 	}
+
+	method gravedad() {
+    	position = position.down(1)
+  	}
 
 }
 
