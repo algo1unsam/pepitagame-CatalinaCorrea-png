@@ -47,7 +47,6 @@ object config {
 
 	method configurarTeclas() {
 
-		if( !pepita.estaCansada()) {
 			keyboard.left().onPressDo({pepita.irA(pepita.position().left(1))})
 			keyboard.right().onPressDo({pepita.irA(pepita.position().right(1))})
 			keyboard.up().onPressDo({pepita.irA(pepita.position().up(1))})
@@ -56,11 +55,6 @@ object config {
 				pepita.come(game.uniqueCollider(pepita))
 				game.removeVisual(game.uniqueCollider(pepita))
 				})
-		}
-		if(pepita.estaCansada()){
-			game.stop()
-		}
-
 		
 	}
 	

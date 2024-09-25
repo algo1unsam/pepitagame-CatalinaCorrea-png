@@ -29,9 +29,18 @@ object pepita {
 	}
 
 	method irA(nuevaPosicion) {
-		self.vola(position.distance(nuevaPosicion))
-		position = nuevaPosicion
+    if(!self.estaCansada() && self.limitesX() && self.limitesY()){
+		  self.vola(position.distance(nuevaPosicion))
+		  position = nuevaPosicion
+    } else {
+      game.addVisual(muro)
+      game.addVisual(gameOver)
+      game.stop()
+    }
 	}
+
+  method limitesX() = self.position().x().between(0, 11)
+  method limitesY() = self.position().y().between(0, 11)
 
 	method estaCansada() {
 		return energia <= 0
@@ -46,6 +55,7 @@ object pepita {
 	}
 
 	method gravedad() {
+    if(self.limitesY())
     	position = position.down(1)
   	}
 

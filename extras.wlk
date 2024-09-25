@@ -17,8 +17,22 @@ object nido {
 object silvestre {
 
 	method image() = "silvestre.png"
+  
+	method position() = game.at(self.limiteX(),0)
 
-	method position() = game.at(pepita.position().x().max(3),0)
+  method limiteX() = pepita.position().x().max(3)
 
 	
+}
+
+object muro {
+  method position() = game.origin()
+
+  method image() = "fondo.jpg"
+}
+object gameOver {
+  method position() = game.at(4,5)
+
+  method text() = "Pepita murió. La mataste."
+  method textColor() = "#FF0000"
 }
