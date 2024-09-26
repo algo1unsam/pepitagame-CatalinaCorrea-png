@@ -15,7 +15,6 @@ object pepita {
 			else {
 				return "pepita.png"
 			}
-		
 	}
 
 	method esAtrapada(silvestre) = self.position() == silvestre.position()
@@ -29,18 +28,20 @@ object pepita {
 	}
 
 	method irA(nuevaPosicion) {
-    if(!self.estaCansada() && self.limitesX() && self.limitesY()){
+    if(!self.estaCansada()){
 		  self.vola(position.distance(nuevaPosicion))
 		  position = nuevaPosicion
     } else {
-      game.addVisual(muro)
-      game.addVisual(gameOver)
-      game.stop()
+      // game.addVisual(muro)
+      game.addVisual(gameOver)  /// EXTRA
+      game.schedule(2000, {game.stop()})
     }
 	}
 
-  method limitesX() = self.position().x().between(0, 11)
-  method limitesY() = self.position().y().between(0, 11)
+  //* LIMITES BORDES
+  method limiteL() = self.position().x().between(1, 9)
+  method limiteR() = self.position().x().between(0, 8)
+  method limiteU() = self.position().y().between(0, 8)
 
 	method estaCansada() {
 		return energia <= 0
@@ -54,8 +55,9 @@ object pepita {
 		return position.y() == 0 
 	}
 
-	method gravedad() {
-    if(self.limitesY())
+  //* METODO PARA GRAVEDAD
+	method cae() {
+    if(!self.estaEnElSuelo())
     	position = position.down(1)
   	}
 
